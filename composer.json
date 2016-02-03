@@ -1,0 +1,27 @@
+{
+    "name": "REST API SGCONLINE",
+    "version": "v2",
+    "description": "REST service",
+    "keywords": ["sgconline", "rest", "api", "psr7"],
+    "homepage": "http://www.sgconline.com.br",
+    "authors": [
+        {
+            "name": "Ronaldo Moreira Junior",
+            "email": "elj0k3r@gmail.com"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "src/controllers",
+            "src/middlewares",
+            "src/models"
+        ]
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "slim/slim": "~3.0",
+        "monolog/monolog": "^1.17",
+        "illuminate/database": "^5.2",
+        "respect/validation": "^1.0"
+    }
+}
