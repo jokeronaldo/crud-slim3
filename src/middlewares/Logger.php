@@ -9,7 +9,7 @@ class Logger
 {
     protected $psrLogger;
 
-    public function __construct(LoggerInterface $logger, $context)
+    public function __construct(LoggerInterface $logger)
     {
         $this->psrLogger = $logger;
     }
@@ -17,8 +17,6 @@ class Logger
     public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next)
     {
         $response = $next($request, $response);
-        
-        $context = [];
         
         $logString = '(' . $request->getUri()->getPath() . ')';
         
@@ -32,7 +30,7 @@ class Logger
             $level = 'alert';
         }
         
-        $this->psrLogger->$level('#' . $status . ': ' . $logString, $context);
+        $this->psrLogger->$level('#' . $status . ': ' . $logString);
         
         return $response;
     }
