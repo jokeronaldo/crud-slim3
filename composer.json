@@ -1,6 +1,5 @@
 {
     "name": "jokeronaldo/crud-slim3",
-    "version": "v2",
     "description": "REST service",
     "keywords": ["sgconline", "rest", "api", "psr7"],
     "license": "MIT",
