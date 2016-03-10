@@ -1,6 +1,9 @@
 <?php
+use \Psr\Http\Message\RequestInterface;
+use \Psr\Http\Message\ResponseInterface;
+
 // Root
-$app->get('/', function ($request, $response, $args) {
+$app->get('/', function (RequestInterface $request, ResponseInterface $response, $args) {
     return $response->withStatus(403)->write('Forbidden.');
 });
 

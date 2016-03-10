@@ -5,7 +5,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $container = $app->getContainer();
 
 // Monolog
-$container['logger'] = function ($c) {
+$container['logger'] = function (\Slim\Container $c) {
     $settings = $c->get('settings')['logger'];
     
     $logger = new Monolog\Logger($settings['name']);
