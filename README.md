@@ -17,6 +17,15 @@ Alterar configurações de banco entre outras no arquivo **src/settings.php**
 
 Dar permissão de escrita no diretório logs
 
+Criar o arquivo **.htaccess** no diretório **public/** com o seguinte conteúdo:
+
+```
+RewriteEngine On
+RewriteRule .* - [env=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+```
+
 ## API Request
 
 Todas requests de POST/PATCH devem ser feitas com **x-www-form-urlencoded**
