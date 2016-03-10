@@ -3,7 +3,8 @@
     "version": "v2",
     "description": "REST service",
     "keywords": ["sgconline", "rest", "api", "psr7"],
-    "homepage": "http://www.sgconline.com.br",
+    "license": "MIT",
+    "homepage": "http://www.slimframework.com",
     "authors": [
         {
             "name": "Ronaldo Moreira Junior",
