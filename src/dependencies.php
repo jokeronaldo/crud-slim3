@@ -1,6 +1,5 @@
 <?php
 use Illuminate\Database\Capsule\Manager as Capsule;
-//use Illuminate\Database\Eloquent\Relations\Relation;
 
 // DIC
 $container = $app->getContainer();
