@@ -1,6 +1,7 @@
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/39f9efdc-883e-40a8-a1ed-6d48203759f6/big.png)](https://insight.sensiolabs.com/projects/39f9efdc-883e-40a8-a1ed-6d48203759f6)
 # CRUD
 
-Crud simples com Slim 3 Framework
+Crud simples com Slim 3 Framework / Eloquent ORM / Monolog
 
 ## Instalação
 
