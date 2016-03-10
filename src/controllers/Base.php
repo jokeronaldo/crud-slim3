@@ -2,7 +2,6 @@
 namespace Controllers;
 
 use \Slim\Container;
-use Psr\Http\Message\RequestInterface;
 use Models;
 
 class Base
