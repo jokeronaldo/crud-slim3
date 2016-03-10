@@ -2,7 +2,6 @@
 namespace Controllers;
 
 use \Slim\Container;
-use Models;
 
 class Base
 {
