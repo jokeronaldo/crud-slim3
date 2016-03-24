@@ -59,12 +59,12 @@ class Base
      *
      * @param object $data
      * @return string
-     * @throws \Excepetion Quando $data não é um objeto
+     * @throws \Exception Quando $data não é um objeto
      */
     public static function encode($data)
     {
         if (!is_object($data)) {
-            throw new \Excepetion('$data deve ser um objeto.');
+            throw new \Exception('$data deve ser um objeto.');
         } else {
             return json_encode($data, JSON_PRETTY_PRINT) . PHP_EOL;
         }
@@ -127,12 +127,12 @@ class Base
      *
      * @param array $validations
      * @return bool
-     * @throws \Excepetion Quando $validations não é um array
+     * @throws \Exception Quando $validations não é um array
      */
     public static function validate($validations)
     {
         if (!is_array($validations)) {
-            throw new \Excepetion('$validations deve ser um array de valores booleanos.');
+            throw new \Exception('$validations deve ser um array de valores booleanos.');
         } else {
             foreach ($validations as $v) {
                 if ($v === false) {
