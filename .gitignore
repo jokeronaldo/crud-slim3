@@ -1,4 +1,5 @@
+/logs
+/public/.htaccess
 /vendor
 composer.phar
 composer.lock
-/public/.htaccess
