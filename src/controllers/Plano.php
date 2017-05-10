@@ -26,7 +26,7 @@ class Plano extends Base
      * @param Slim\Http\Request $request
      * @param Slim\Http\Response $response
      * @param array $args
-     * @return void|Slim\Http\Response
+     * @return boolean|Slim\Http\Response
      */
     public function getById($request, $response, $args)
     {
@@ -43,7 +43,8 @@ class Plano extends Base
 		$plano = Models\Plano::find($id);
 
 		if ($plano) {
-			die(self::encode($plano));
+			echo self::encode($plano);
+			return true;
 		}
 		
 		$status = 404;
@@ -76,7 +77,8 @@ class Plano extends Base
 		$plano = Models\Plano::with('relationUsuarios.relationClube')->find($id);
 
 		if ($plano) {
-			die(self::encode($plano));
+			echo self::encode($plano);
+			return true;
 		}
 		
 		$status = 404;

@@ -28,7 +28,7 @@ class Clube extends Base
      * @param Slim\Http\Request $request
      * @param Slim\Http\Response $response
      * @param array $args
-     * @return void|Slim\Http\Response
+     * @return boolean|Slim\Http\Response
      */
     public function getById($request, $response, $args)
     {
@@ -45,7 +45,8 @@ class Clube extends Base
 		$clube = Models\Clube::find($id);
 
 		if ($clube) {
-			die(self::encode($clube));
+			echo self::encode($clube);
+			return true;
 		}
 		
 		$status = 404;
@@ -67,7 +68,7 @@ class Clube extends Base
      * @param Slim\Http\Request $request
      * @param Slim\Http\Response $response
      * @param array $args
-     * @return void|Slim\Http\Response
+     * @return boolean|Slim\Http\Response
      */
     public function getUsuariosById($request, $response, $args)
     {
@@ -84,7 +85,8 @@ class Clube extends Base
 		$clube = Models\Clube::with('relationUsuarios.relationPlano')->find($id);
 
 		if ($clube) {
-			die(self::encode($clube));
+			echo self::encode($clube);
+			return true;
 		}
 		
 		$status = 404;
