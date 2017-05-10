@@ -14,10 +14,8 @@ class Plano extends Base
     public function get()
     {
         $planos = Models\Plano::get();
-        
-        if ($planos) {
-            echo self::encode($planos);
-        }
+		
+        echo self::encode($planos);
     }
 
     /**
@@ -40,17 +38,17 @@ class Plano extends Base
 
         if ($this->validate($validations) === false) {
             return $response->withStatus(400);
-        } else {
-            $plano = Models\Plano::find($id);
-
-            if ($plano) {
-                echo self::encode($plano);
-            } else {
-                $status = 404;
-                echo $this->error('get#plano{id}', $request->getUri()->getPath(), $status);
-                return $response->withStatus($status);
-            }
         }
+		
+		$plano = Models\Plano::find($id);
+
+		if ($plano) {
+			die(self::encode($plano));
+		}
+		
+		$status = 404;
+		echo $this->error('get#plano{id}', $request->getUri()->getPath(), $status);
+		return $response->withStatus($status);
     }
 
     /**
@@ -73,17 +71,17 @@ class Plano extends Base
 
         if ($this->validate($validations) === false) {
             return $response->withStatus(400);
-        } else {
-            $plano = Models\Plano::with('relationUsuarios.relationClube')->find($id);
-
-            if ($plano) {
-                echo self::encode($plano);
-            } else {
-                $status = 404;
-                echo $this->error('get#planos{id}', $request->getUri()->getPath(), $status);
-                return $response->withStatus($status);
-            }
         }
+		
+		$plano = Models\Plano::with('relationUsuarios.relationClube')->find($id);
+
+		if ($plano) {
+			die(self::encode($plano));
+		}
+		
+		$status = 404;
+		echo $this->error('get#planos{id}', $request->getUri()->getPath(), $status);
+		return $response->withStatus($status);
     }
     
     /**
@@ -104,19 +102,15 @@ class Plano extends Base
 
         if ($this->validate($validations) === false) {
             return $response->withStatus(400);
-        } else {
-            $plano = new Models\Plano;
-
-            $plano->pln_nome = $nome;
-
-            $plano->save();
-
-            $path = $request->getUri()->getPath() . '/' . $plano->pln_id;
-
-            echo $this->resource($path); // retorna a localização do resource conforme spec para REST
-
-            return $response->withStatus(201); // retorna status 201 quando resource é criado conforme spec para REST
         }
+		
+		$plano = new Models\Plano;
+		$plano->pln_nome = $nome;
+		$plano->save();
+		
+		$path = $request->getUri()->getPath() . '/' . $plano->pln_id;
+		echo $this->resource($path); // retorna a localização do resource conforme spec para REST
+		return $response->withStatus(201); // retorna status 201 quando resource é criado conforme spec para REST
     }
     
     /**
@@ -127,7 +121,7 @@ class Plano extends Base
      * @param Slim\Http\Request $request
      * @param Slim\Http\Response $response
      * @param array $args
-     * @return void|Slim\Http\Response
+     * @return boolean|Slim\Http\Response
      */
     public function update($request, $response, $args)
     {
@@ -141,25 +135,25 @@ class Plano extends Base
 
         if ($this->validate($validations) === false) {
             return $response->withStatus(400);
-        } else {
-            $plano = Models\Plano::find($id);
-            
-            if ($plano) {
-                $plano->pln_nome = $nome;
-
-                $plano->save();
-            } else {
-                $status = 404;
-                
-                echo $this->error(
-                    'patch#planos{id}',
-                    $request->getUri()->getPath(),
-                    $status
-                );
-                
-                return $response->withStatus($status);
-            }
         }
+		
+		$plano = Models\Plano::find($id);
+		
+		if ($plano) {
+			$plano->pln_nome = $nome;
+			$plano->save();
+			return true;
+		}
+		
+		$status = 404;
+		
+		echo $this->error(
+			'patch#planos{id}',
+			$request->getUri()->getPath(),
+			$status
+		);
+		
+		return $response->withStatus($status);
     }
     
     /**
@@ -170,7 +164,7 @@ class Plano extends Base
      * @param Slim\Http\Request $request
      * @param Slim\Http\Response $response
      * @param array $args
-     * @return void|Slim\Http\Response
+     * @return boolean|Slim\Http\Response
      */
     public function delete($request, $response, $args)
     {
@@ -182,37 +176,38 @@ class Plano extends Base
 
         if ($this->validate($validations) === false) {
             return $response->withStatus(400);
-        } else {
-            $plano = Models\Plano::with('relationUsuarios')->find($id);
-
-            if ($plano) {
-                $usuarios = $plano->relationUsuarios->all();
-                
-                if ($usuarios) {
-                    $status = 403;
-
-                    echo $this->error(
-                        'delete#planos{id}',
-                        $request->getUri()->getPath(),
-                        $status,
-                        'FK_CONSTRAINT_ABORT'
-                    );
-
-                    return $response->withStatus($status);
-                } else {
-                    $plano->delete();
-                }
-            } else {
-                $status = 404;
-                
-                echo $this->error(
-                    'delete#planos{id}',
-                    $request->getUri()->getPath(),
-                    $status
-                );
-                
-                return $response->withStatus($status);
-            }
         }
+		
+		$plano = Models\Plano::with('relationUsuarios')->find($id);
+
+		if ($plano) {
+			$usuarios = $plano->relationUsuarios->all();
+			
+			if ($usuarios) {
+				$status = 403;
+
+				echo $this->error(
+					'delete#planos{id}',
+					$request->getUri()->getPath(),
+					$status,
+					'FK_CONSTRAINT_ABORT'
+				);
+
+				return $response->withStatus($status);
+			}
+			
+			$plano->delete();
+			return true;
+		}
+		
+		$status = 404;
+		
+		echo $this->error(
+			'delete#planos{id}',
+			$request->getUri()->getPath(),
+			$status
+		);
+		
+		return $response->withStatus($status);
     }
 }

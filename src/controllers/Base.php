@@ -34,9 +34,9 @@ class Base
     {
         if (isset($this->container->request->getQueryParams()[$key])) {
             return $this->container->request->getQueryParams()[$key];
-        } else {
-            return null;
         }
+		
+        return null;
     }
 
     /**
@@ -49,9 +49,9 @@ class Base
     {
         if (isset($this->container->request->getParsedBody()[$key])) {
             return $this->container->request->getParsedBody()[$key];
-        } else {
-            return null;
         }
+		
+        return null;
     }
     
     /**
@@ -65,9 +65,9 @@ class Base
     {
         if (!is_object($data)) {
             throw new \Exception('$data deve ser um objeto.');
-        } else {
-            return json_encode($data, JSON_PRETTY_PRINT) . PHP_EOL;
         }
+		
+        return json_encode($data, JSON_PRETTY_PRINT) . PHP_EOL;
     }
     
     /**
@@ -133,13 +133,13 @@ class Base
     {
         if (!is_array($validations)) {
             throw new \Exception('$validations deve ser um array de valores booleanos.');
-        } else {
-            foreach ($validations as $v) {
-                if ($v === false) {
-                    return false;
-                }
-            }
         }
+		
+		foreach ($validations as $v) {
+			if ($v === false) {
+				return false;
+			}
+		}
         
         return true;
     }

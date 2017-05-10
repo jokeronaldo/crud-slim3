@@ -40,23 +40,23 @@ class Clube extends Base
 
         if ($this->validate($validations) === false) {
             return $response->withStatus(400);
-        } else {
-            $clube = Models\Clube::find($id);
-
-            if ($clube) {
-                echo self::encode($clube);
-            } else {
-                $status = 404;
-                
-                echo $this->error(
-                    'get#clubes{id}',
-                    $request->getUri()->getPath(),
-                    $status
-                );
-                
-                return $response->withStatus($status);
-            }
         }
+
+		$clube = Models\Clube::find($id);
+
+		if ($clube) {
+			die(self::encode($clube));
+		}
+		
+		$status = 404;
+		
+		echo $this->error(
+			'get#clubes{id}',
+			$request->getUri()->getPath(),
+			$status
+		);
+		
+		return $response->withStatus($status);
     }
 
     /**
@@ -79,23 +79,23 @@ class Clube extends Base
 
         if ($this->validate($validations) === false) {
             return $response->withStatus(400);
-        } else {
-            $clube = Models\Clube::with('relationUsuarios.relationPlano')->find($id);
-
-            if ($clube) {
-                echo self::encode($clube);
-            } else {
-                $status = 404;
-                
-                echo $this->error(
-                    'get#clubes{id}usuarios',
-                    $request->getUri()->getPath(),
-                    $status
-                );
-                
-                return $response->withStatus($status);
-            }
         }
+		
+		$clube = Models\Clube::with('relationUsuarios.relationPlano')->find($id);
+
+		if ($clube) {
+			die(self::encode($clube));
+		}
+		
+		$status = 404;
+		
+		echo $this->error(
+			'get#clubes{id}usuarios',
+			$request->getUri()->getPath(),
+			$status
+		);
+		
+		return $response->withStatus($status);
     }
     
     /**
@@ -116,19 +116,14 @@ class Clube extends Base
 
         if ($this->validate($validations) === false) {
             return $response->withStatus(400);
-        } else {
-            $clube = new Models\Clube;
-
-            $clube->clb_nome = $nome;
-
-            $clube->save();
-
-            $path = $request->getUri()->getPath() . '/' . $clube->clb_id;
-
-            echo $this->resource($path); // retorna a localização do resource conforme spec para REST
-
-            return $response->withStatus(201); // retorna status 201 quando resource é criado conforme spec para REST
         }
+		
+		$clube = new Models\Clube;
+		$clube->clb_nome = $nome;
+		$clube->save();
+		$path = $request->getUri()->getPath() . '/' . $clube->clb_id;
+		echo $this->resource($path); // retorna a localização do resource conforme spec para REST
+		return $response->withStatus(201); // retorna status 201 quando resource é criado conforme spec para REST
     }
     
     /**
@@ -139,7 +134,7 @@ class Clube extends Base
      * @param Slim\Http\Request $request
      * @param Slim\Http\Response $response
      * @param array $args
-     * @return void|Slim\Http\Response
+     * @return boolean|Slim\Http\Response
      */
     public function update($request, $response, $args)
     {
@@ -153,25 +148,25 @@ class Clube extends Base
 
         if ($this->validate($validations) === false) {
             return $response->withStatus(400);
-        } else {
-            $clube = Models\Clube::find($id);
-            
-            if ($clube) {
-                $clube->clb_nome = $nome;
-
-                $clube->save();
-            } else {
-                $status = 404;
-                
-                echo $this->error(
-                    'patch#clubes{id}',
-                    $request->getUri()->getPath(),
-                    $status
-                );
-                
-                return $response->withStatus($status);
-            }
         }
+		
+		$clube = Models\Clube::find($id);
+		
+		if ($clube) {
+			$clube->clb_nome = $nome;
+			$clube->save();
+			return true;
+		}
+		
+		$status = 404;
+		
+		echo $this->error(
+			'patch#clubes{id}',
+			$request->getUri()->getPath(),
+			$status
+		);
+		
+		return $response->withStatus($status);
     }
     
     /**
@@ -182,7 +177,7 @@ class Clube extends Base
      * @param Slim\Http\Request $request
      * @param Slim\Http\Response $response
      * @param array $args
-     * @return void|Slim\Http\Response
+     * @return boolean|Slim\Http\Response
      */
     public function delete($request, $response, $args)
     {
@@ -194,37 +189,38 @@ class Clube extends Base
 
         if ($this->validate($validations) === false) {
             return $response->withStatus(400);
-        } else {
-            $clube = Models\Clube::with('relationUsuarios')->find($id);
-
-            if ($clube) {
-                $usuarios = $clube->relationUsuarios->all();
-                
-                if ($usuarios) {
-                    $status = 403;
-
-                    echo $this->error(
-                        'delete#clubes{id}',
-                        $request->getUri()->getPath(),
-                        $status,
-                        'FK_CONSTRAINT_ABORT'
-                    );
-
-                    return $response->withStatus($status);
-                } else {
-                    $clube->delete();
-                }
-            } else {
-                $status = 404;
-                
-                echo $this->error(
-                    'delete#clubes{id}',
-                    $request->getUri()->getPath(),
-                    $status
-                );
-                
-                return $response->withStatus($status);
-            }
         }
+		
+		$clube = Models\Clube::with('relationUsuarios')->find($id);
+
+		if ($clube) {
+			$usuarios = $clube->relationUsuarios->all();
+			
+			if ($usuarios) {
+				$status = 403;
+
+				echo $this->error(
+					'delete#clubes{id}',
+					$request->getUri()->getPath(),
+					$status,
+					'FK_CONSTRAINT_ABORT'
+				);
+
+				return $response->withStatus($status);
+			}
+			
+			$clube->delete();			
+			return true;
+		}
+		
+		$status = 404;
+		
+		echo $this->error(
+			'delete#clubes{id}',
+			$request->getUri()->getPath(),
+			$status
+		);
+		
+		return $response->withStatus($status);
     }
 }
