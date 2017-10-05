@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 DELETE FROM `usuarios`;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
 INSERT INTO `usuarios` (`usu_id`, `usu_nome`, `usu_sobrenome`, `usu_cpf`, `usu_telefone`, `usu_email`, `usu_nascimento`, `usu_endereco`, `usu_clube`, `usu_plano`, `usu_titular`, `usu_created_at`, `usu_updated_at`) VALUES
-	(4, 'Ronaldo', 'Moreira Junior', '05401293992', '4799833271', 'elj0k3r@gmail.com', '1984-03-31', 'Rua Bernardino João Vitorino, 52, Centro, Itajaí', 1, 1, NULL, '2016-02-02 10:03:07', NULL),
+	(4, 'Ronaldo', 'Moreira Junior', '91683223560', '4799833271', 'elj0k3r@gmail.com', '1984-01-01', 'Rua Bernardino João Vitorino, 52, Centro, Itajaí', 1, 1, NULL, '2016-02-02 10:03:07', NULL),
 	(5, 'João', 'Silva', '05501393985', '4733445566', 'joao@silva.com', '0000-00-00', 'Rua Próspera, 30, Centro', 1, 2, 4, '2016-02-02 13:05:44', NULL);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
